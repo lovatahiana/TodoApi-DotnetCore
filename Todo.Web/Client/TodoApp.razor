@@ -1,0 +1,39 @@
+﻿@inject TodoClient Client
+
+@if (!string.IsNullOrEmpty(CurrentUser))
+{
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            Logged in as <strong>@CurrentUser</strong>
+            <a class="btn btn-primary" role="button" @onclick="@Logout">Logout</a>
+        </li>
+    </ul>
+
+    <TodoList OnForbidden="@Logout" />
+}
+else
+{
+    <LogInForm OnLoggedIn="@HandleLogin" SocialProviders="@SocialProviders" />
+}
+
+@code {
+    [Parameter] 
+    public string? CurrentUser { get; set; }
+
+    [Parameter]
+    public string[] SocialProviders { get; set; } = Array.Empty<string>();
+
+
+    void HandleLogin(string newUsername)
+    {
+        CurrentUser = newUsername;
+    }
+
+    async Task Logout()
+    {
+        if (await Client.LogoutAsync())
+        {
+            CurrentUser = null;
+        }
+    }
+}

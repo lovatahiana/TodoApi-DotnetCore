@@ -1,0 +1,41 @@
+### Create a user
+@password = <put a password here>
+
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "username": "myuser",
+    "password": "{{password}}"
+}
+
+### Get a token
+
+POST http://localhost:5000/users/token
+Content-Type: application/json
+
+{
+    "username": "myuser",
+    "password": "{{password}}"
+}
+
+@token = <put JWT token here>
+
+### Create a todo
+
+POST http://localhost:5000/todos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "title": "Get a haircut"
+}
+
+### Get all todos
+
+GET http://localhost:5000/todos
+Authorization: Bearer {{token}}
+
+### Delete a todo
+DELETE http://localhost:5000/todos/1
+Authorization: Bearer {{token}}

@@ -1,0 +1,11 @@
+{
+  "image": "mcr.microsoft.com/dotnet/sdk:7.0",
+  "extensions": [
+    "ms-dotnettools.csharp"
+  ],
+  "postCreateCommand": "chmod +x .devcontainer/init.sh && .devcontainer/init.sh",
+  "forwardPorts": [
+    5000,
+    5001
+  ]
+}
